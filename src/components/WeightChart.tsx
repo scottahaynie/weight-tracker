@@ -1,6 +1,6 @@
 import { Circle, matchFont } from "@shopify/react-native-skia";
 import React, { useMemo, useState } from "react";
-import { Platform, StyleSheet, Text, View, useColorScheme } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { runOnJS, useAnimatedReaction } from "react-native-reanimated";
 import { CartesianChart, Line, useChartPressState } from "victory-native";
 import { WeightEntry } from "../types";
@@ -8,6 +8,13 @@ import { fromISODateString } from "../utils/date";
 
 const LINE_COLOR = "#3B82F6";
 const CHART_HEIGHT = 240;
+// The app is locked to light mode (see app.json's userInterfaceStyle) and
+// every other screen uses hardcoded light colors, so the chart shouldn't
+// derive its palette from useColorScheme() — Expo Go can't apply the
+// userInterfaceStyle native config the way a standalone build does, so the
+// two can disagree on the system color scheme and render mismatched colors.
+const TEXT_COLOR = "#374151";
+const GRID_COLOR = "#E5E7EB";
 
 type Props = {
   entries: WeightEntry[];
@@ -32,10 +39,6 @@ function formatShortDateWithYear(date: Date): string {
 // there are — unlike a per-point categorical axis, which starves label
 // boxes of space once there are more than a couple dozen entries.
 export function WeightChart({ entries, height = CHART_HEIGHT }: Props) {
-  const scheme = useColorScheme();
-  const isDark = scheme === "dark";
-  const textColor = isDark ? "#E5E7EB" : "#374151";
-  const gridColor = isDark ? "#374151" : "#E5E7EB";
   // matchFont's default fontFamily ("System") isn't a name Android's Skia
   // font manager recognizes, so labels silently fail to render there —
   // "sans-serif" is a generic family Android always resolves to Roboto.
@@ -69,7 +72,7 @@ export function WeightChart({ entries, height = CHART_HEIGHT }: Props) {
   if (entries.length === 0) {
     return (
       <View style={[styles.emptyContainer, { height }]}>
-        <Text style={{ color: textColor }}>No entries in this range yet.</Text>
+        <Text style={{ color: TEXT_COLOR }}>No entries in this range yet.</Text>
       </View>
     );
   }
@@ -83,7 +86,7 @@ export function WeightChart({ entries, height = CHART_HEIGHT }: Props) {
     <View style={styles.container}>
       <View style={styles.readout}>
         {isActive && activeEntry ? (
-          <Text style={[styles.readoutText, { color: textColor }]}>
+          <Text style={[styles.readoutText, { color: TEXT_COLOR }]}>
             {formatShortDateWithYear(fromISODateString(activeEntry.date))} · {activeEntry.weight.toFixed(1)}
           </Text>
         ) : null}
@@ -104,8 +107,8 @@ export function WeightChart({ entries, height = CHART_HEIGHT }: Props) {
           }}
           axisOptions={{
             font,
-            labelColor: textColor,
-            lineColor: gridColor,
+            labelColor: TEXT_COLOR,
+            lineColor: GRID_COLOR,
             tickCount: { x: 5, y: 4 },
             formatXLabel: (ms) => formatShortDate(new Date(ms)),
             formatYLabel: (v) => `${Math.round(v)}`,
