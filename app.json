@@ -16,14 +16,18 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.scottahaynie.weighttracker"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "sheetCsvUrl": "https://docs.google.com/spreadsheets/d/1cde6RpiKbTdshiOO5G7BbV_evVFNrrn1oktAAceAj_U/export?format=csv",
-      "appsScriptUrl": "https://script.google.com/macros/s/AKfycbxRyY5YXMCaG8zmZYYD4YT_3kqYl5xBrnnenWbrVtQCHUrp-v8cfEVmOyy9G2ThwVcu/exec"
+      "appsScriptUrl": "https://script.google.com/macros/s/AKfycbxRyY5YXMCaG8zmZYYD4YT_3kqYl5xBrnnenWbrVtQCHUrp-v8cfEVmOyy9G2ThwVcu/exec",
+      "eas": {
+        "projectId": "4e9e37b0-4084-4c7c-bd2a-1aa996e5aed6"
+      }
     },
     "plugins": [
       "@react-native-community/datetimepicker"
