@@ -3,7 +3,7 @@
     "name": "weight-tracker",
     "slug": "weight-tracker",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
@@ -20,6 +20,13 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "sheetCsvUrl": "https://docs.google.com/spreadsheets/d/1cde6RpiKbTdshiOO5G7BbV_evVFNrrn1oktAAceAj_U/export?format=csv",
+      "appsScriptUrl": "https://script.google.com/macros/s/AKfycbxRyY5YXMCaG8zmZYYD4YT_3kqYl5xBrnnenWbrVtQCHUrp-v8cfEVmOyy9G2ThwVcu/exec"
+    },
+    "plugins": [
+      "@react-native-community/datetimepicker"
+    ]
   }
 }
